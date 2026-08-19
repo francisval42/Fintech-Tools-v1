@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)file:///C:/Users/franc/Downloads/fintech-tools-directory-eleflow.html -->
+<html lang="en-AU"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fintech Tools — Free calculators for Australian accountants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./Fintech Tools — Free calculators for Australian accountants_files/css2" rel="stylesheet">
+<style>
+:root{
+  --blue:#4A6CF7;
+  --blue-deep:#3454E0;
+  --sky:#6FC8F5;
+  --yellow:#F5D54A;
+  --charcoal:#1E2126;
+  --ink:#23262B;
+  --ink-soft:#585E66;
+  --paper:#F2F1EE;
+  --card:#FFFFFF;
+  --rule:#E2E1DC;
+  --red:#C24A33;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--paper);color:var(--ink);
+  font-size:15px;line-height:1.55;
+}
+.num{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer}
+a{color:var(--blue-deep)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+
+/* ---------- step mark ---------- */
+.mark{
+  display:inline-grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
+  width:22px;height:22px;flex:none;
+}
+.mark i:nth-child(1){grid-column:2;grid-row:1;background:var(--yellow)}
+.mark i:nth-child(2){grid-column:1;grid-row:2;background:var(--blue)}
+.mark i:nth-child(3){grid-column:2;grid-row:2;background:var(--sky)}
+
+/* ---------- header ---------- */
+.site-head{
+  position:sticky;top:0;z-index:40;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 18px;border-bottom:1px solid var(--rule);background:var(--card);
+}
+.wordmark{
+  display:flex;align-items:center;gap:9px;
+  font-family:'Schibsted Grotesk',sans-serif;font-weight:800;font-size:18px;
+  letter-spacing:-.01em;white-space:nowrap;border:none;background:none;color:var(--ink);padding:0;
+}
+.wordmark .tld{font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:10.5px;color:var(--ink-soft);margin-left:1px}
+.head-actions{display:flex;gap:8px;align-items:center}
+.btn{
+  border:1px solid var(--charcoal);background:var(--card);color:var(--ink);
+  padding:9px 15px;border-radius:8px;font-weight:600;font-size:13.5px;white-space:nowrap;
+}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.primary:hover{background:var(--blue-deep)}
+.btn.ghost{border-color:var(--rule);color:var(--ink-soft)}
+
+/* ---------- hub ---------- */
+.hero{background:var(--charcoal);color:#fff;overflow:hidden;position:relative}
+.hero-inner{max-width:1040px;margin:0 auto;padding:44px 20px 38px;position:relative;z-index:1}
+.hero h1{
+  font-family:'Schibsted Grotesk',sans-serif;font-weight:800;
+  font-size:clamp(27px,5.5vw,40px);letter-spacing:-.02em;line-height:1.1;max-width:620px;
+}
+.hero h1 em{font-style:normal;color:var(--yellow)}
+.hero p{color:#C9CCD2;margin-top:13px;max-width:540px;font-size:clamp(15px,2.2vw,16.5px)}
+.trust{display:flex;gap:22px;flex-wrap:wrap;margin-top:24px}
+.trust div{display:flex;align-items:baseline;gap:8px;font-size:13px;color:#C9CCD2}
+.trust .tick{font-family:'IBM Plex Mono',monospace;color:var(--sky);font-weight:600}
+.hero-shapes{position:absolute;right:-20px;top:0;bottom:0;width:340px;pointer-events:none}
+.hero-shapes .sq{position:absolute}
+.hero-shapes .sq.b{width:120px;height:120px;background:var(--blue);right:120px;top:36px}
+.hero-shapes .sq.s{width:60px;height:60px;background:var(--sky);right:60px;top:156px}
+.hero-shapes .sq.y{width:60px;height:60px;background:var(--yellow);right:120px;top:-24px}
+.hero-shapes .qc{
+  width:120px;height:120px;background:#F5F3EE;right:0;top:156px;position:absolute;
+  border-radius:0 0 0 120px;
+}
+.grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:14px;padding:26px 20px;max-width:1080px;margin:0 auto;
+}
+.tool-card{
+  background:var(--card);border:1px solid var(--rule);border-radius:14px;
+  padding:18px;text-align:left;display:flex;flex-direction:column;gap:9px;
+  transition:border-color .12s, transform .12s;
+}
+.tool-card:hover{border-color:var(--blue)}
+.tool-card:active{transform:scale(.99)}
+.tool-card .chip{
+  width:16px;height:16px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
+}
+.tool-card .chip i:nth-child(1){grid-column:2;grid-row:1;background:var(--yellow)}
+.tool-card .chip i:nth-child(2){grid-column:1;grid-row:2;background:var(--blue)}
+.tool-card .chip i:nth-child(3){grid-column:2;grid-row:2;background:var(--sky)}
+.tool-card h2{font-family:'Schibsted Grotesk',sans-serif;font-size:16.5px;font-weight:700;line-height:1.25}
+.tool-card p{font-size:13.5px;color:var(--ink-soft);flex:1}
+.tool-card .open{font-size:13px;font-weight:600;color:var(--blue-deep)}
+.tool-card .soon{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.request-band{max-width:1080px;margin:0 auto;padding:4px 20px 36px}
+.request-band .inner{
+  border-radius:14px;padding:20px;background:var(--card);border:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+}
+.request-band p{color:var(--ink-soft);font-size:14px;max-width:520px}
+.request-band strong{color:var(--ink)}
+
+/* ---------- tool page ---------- */
+.toolpage{max-width:900px;margin:0 auto;padding:18px 16px 48px}
+.crumbs{font-size:13px;color:var(--ink-soft);margin:2px 0 14px}
+.crumbs button{border:none;background:none;color:var(--blue-deep);font-weight:600;font-size:13px;text-decoration:underline;padding:6px 0}
+
+.calc-wrap{background:var(--card);border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.calc-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;
+  padding:16px 18px 0;
+}
+.calc-title{font-family:'Schibsted Grotesk',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.01em}
+.brand-chip{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-soft)}
+.brand-chip .logo{
+  width:20px;height:20px;border-radius:4px;flex:none;
+  background:linear-gradient(135deg,#2A3E8F,#5A6FD6);
+}
+.calc-body{display:grid;grid-template-columns:minmax(230px,300px) 1fr}
+.calc-inputs{padding:16px 18px 20px;border-right:1px solid var(--rule)}
+.calc-results{padding:16px 18px 20px;background:#FBFBFA;min-width:0}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:4px;letter-spacing:.02em}
+.field input,.field select{
+  width:100%;padding:10px 11px;border:1px solid var(--rule);border-radius:8px;
+  font-family:'IBM Plex Mono',monospace;font-size:16px;background:#fff;color:var(--ink);
+}
+.field input:focus,.field select:focus{border-color:var(--blue);outline:none}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.stat{border:1px solid var(--rule);border-radius:10px;padding:11px 13px;background:#fff;min-width:0}
+.stat .k{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft)}
+.stat .v{font-size:17px;font-weight:600;margin-top:2px;overflow-wrap:anywhere}
+.stat.hero-stat{background:var(--yellow);border-color:var(--yellow)}
+.stat.hero-stat .k{color:#5A5220}
+.stat.hero-stat .v{color:var(--charcoal)}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.ledger{width:100%;min-width:480px;border-collapse:collapse;font-size:13px}
+table.ledger th{
+  text-align:right;font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-soft);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--charcoal);
+}
+table.ledger th:first-child{text-align:left}
+table.ledger td{text-align:right;padding:6px 8px;border-bottom:1px solid #EFEEEA}
+table.ledger td:first-child{text-align:left;color:var(--ink-soft)}
+table.ledger tr.gap td{border-bottom:none;color:var(--ink-soft);text-align:center;padding:2px}
+table.ledger tr.residual td{color:var(--red);font-weight:500}
+table.ledger tr.totals td{
+  font-weight:600;border-top:1px solid var(--charcoal);
+  border-bottom:3px double var(--charcoal);padding-top:8px;padding-bottom:8px;
+}
+.calc-foot{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:14px 18px;border-top:1px solid var(--rule);background:#FBFBFA;
+}
+.calc-foot .hint{font-size:12px;color:var(--ink-soft);flex-basis:100%}
+@media (min-width:761px){.calc-foot .hint{flex-basis:auto}}
+
+.content{max-width:720px;margin:26px auto 8px;padding:0 2px}
+.content h3{font-family:'Schibsted Grotesk',sans-serif;font-weight:700;font-size:16px;margin:22px 0 6px}
+.content p{color:var(--ink-soft);margin-bottom:10px}
+.faq{border-top:1px solid var(--rule);margin-top:18px}
+.faq details{border-bottom:1px solid var(--rule);padding:12px 2px}
+.faq summary{font-weight:600;cursor:pointer;font-size:14px;padding:4px 0}
+.faq p{margin-top:8px;font-size:14px}
+
+.placeholder{
+  background:var(--card);border:1px dashed var(--rule);border-radius:14px;
+  padding:38px 22px;text-align:center;
+}
+.placeholder h2{font-family:'Schibsted Grotesk',sans-serif;font-size:20px;margin-bottom:6px}
+.placeholder p{color:var(--ink-soft);max-width:480px;margin:0 auto 4px}
+.placeholder .tag{
+  display:inline-block;margin-top:12px;font-family:'IBM Plex Mono',monospace;
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-deep);
+  background:#EBEFFE;border-radius:99px;padding:5px 13px;
+}
+
+.related{border-top:1px solid var(--rule);margin-top:34px;padding-top:18px}
+.related h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+.related .strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+.related .strip button{
+  border:1px solid var(--rule);background:var(--card);border-radius:99px;
+  padding:9px 15px;font-size:13px;font-weight:500;color:var(--ink);white-space:nowrap;flex:none;
+}
+.related .strip button:hover{border-color:var(--blue);color:var(--blue-deep)}
+
+/* ---------- footer ---------- */
+footer{background:var(--charcoal);color:#C9CCD2;padding:28px 20px 36px;margin-top:8px}
+.foot-inner{max-width:1040px;margin:0 auto;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:baseline}
+.foot-inner .wordmark{color:#fff;font-size:16px}
+.foot-inner .wordmark .tld{color:#8A8F97}
+.foot-inner .small{font-size:13px;color:#9BA0A8;max-width:420px;margin-top:8px}
+.foot-links{display:flex;gap:16px;flex-wrap:wrap;font-size:13px}
+.foot-links a{text-decoration:none;font-weight:500;color:#C9CCD2}
+.foot-links a:hover{color:#fff;text-decoration:underline}
+
+/* ---------- mobile ---------- */
+@media (max-width:760px){
+  .head-actions .btn.ghost{display:none}
+  .hero-shapes{display:none}
+  .hero-inner{padding:32px 18px 26px}
+  .trust{flex-direction:column;gap:8px}
+  .calc-body{grid-template-columns:1fr}
+  .calc-inputs{border-right:none;border-bottom:1px solid var(--rule)}
+  .summary{grid-template-columns:1fr 1fr}
+  .stat.hero-stat{grid-column:1 / -1}
+  .toolpage{padding:14px 12px 40px}
+  .calc-head,.calc-inputs,.calc-results,.calc-foot{padding-left:14px;padding-right:14px}
+  .request-band .inner{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <button class="wordmark" onclick="location.hash=&#39;&#39;">
+    <span class="mark"><i></i><i></i><i></i></span>
+    Fintech&nbsp;Tools<span class="tld">.com.au</span>
+  </button>
+  <div class="head-actions">
+    <button class="btn ghost">Log in</button>
+    <button class="btn primary">Create free account</button>
+  </div>
+</header>
+
+<div id="hub">
+  <div class="hero">
+    <div class="hero-shapes" aria-hidden="true">
+      <span class="sq b"></span><span class="sq s"></span><span class="sq y"></span><span class="qc"></span>
+    </div>
+    <div class="hero-inner">
+      <h1>The calculators your practice pays for, <em>free</em>.</h1>
+      <p>Professional-grade financial calculators for Australian accountants. Export schedules as PDFs branded with your firm's logo, ready for the client file.</p>
+      <div class="trust">
+        <div><span class="tick">✓</span> No per-seat fees — free for accounting professionals</div>
+        <div><span class="tick">✓</span> Branded exports — your logo on every PDF</div>
+        <div><span class="tick">✓</span> Built for Australian lending and tax settings</div>
+      </div>
+    </div>
+  </div>
+  <div class="grid" id="grid">
+  <button class="tool-card" onclick="location.hash=&#39;amortisation-schedule-calculator&#39;">
+    <span class="chip" aria-hidden="true"><i></i><i></i><i></i></span>
+    <h2>Amortisation Schedule</h2><p>Full repayment schedule with balloon/residual support and weekly, fortnightly or monthly frequencies. Export for the client file.</p>
+    <span class="open">Open calculator →</span>
+  </button>
+  <button class="tool-card" onclick="location.hash=&#39;ato-tax-debt-comparison&#39;">
+    <span class="chip" aria-hidden="true"><i></i><i></i><i></i></span>
+    <h2>ATO Tax Debt Comparison</h2><p>True cost of an ATO payment plan (non-deductible GIC, compounding daily) side by side with refinancing the debt.</p>
+    <span class="soon">Coming soon</span>
+  </button>
+  <button class="tool-card" onclick="location.hash=&#39;asset-finance-comparison&#39;">
+    <span class="chip" aria-hidden="true"><i></i><i></i><i></i></span>
+    <h2>Asset Finance Comparison</h2><p>Chattel mortgage vs finance lease vs outright purchase — repayments, GST treatment and deduction effect on one page.</p>
+    <span class="soon">Coming soon</span>
+  </button>
+  <button class="tool-card" onclick="location.hash=&#39;division-7a-loan-calculator&#39;">
+    <span class="chip" aria-hidden="true"><i></i><i></i><i></i></span>
+    <h2>Div 7A Loan Calculator</h2><p>Minimum yearly repayments and benchmark interest for Division 7A complying loans.</p>
+    <span class="soon">Coming soon</span>
+  </button>
+  <button class="tool-card" onclick="location.hash=&#39;instant-asset-write-off-calculator&#39;">
+    <span class="chip" aria-hidden="true"><i></i><i></i><i></i></span>
+    <h2>Instant Asset Write-Off</h2><p>Deduction and cash-flow effect of an eligible asset purchase under the current threshold.</p>
+    <span class="soon">Coming soon</span>
+  </button></div>
+  <div class="request-band">
+    <div class="inner">
+      <p><strong>Missing a tool your practice pays for?</strong> Tell us what it is and what it costs you per seat — popular requests get built first.</p>
+      <button class="btn">Request a tool</button>
+    </div>
+  </div>
+</div>
+
+<div id="toolpage" class="toolpage" hidden="">
+  <div class="crumbs"><button onclick="location.hash=&#39;&#39;">← All tools</button></div>
+  <div id="toolbody"></div>
+  <div class="related">
+    <h4>Other tools</h4>
+    <div class="strip" id="related"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div class="wordmark"><span class="mark"><i></i><i></i><i></i></span>Fintech&nbsp;Tools<span class="tld">.com.au</span></div>
+      <p class="small">Free financial calculators for Australian accounting professionals. General information only — not financial or tax advice.</p>
+    </div>
+    <nav class="foot-links">
+      <a href="file:///C:/Users/franc/Downloads/fintech-tools-directory-eleflow.html#" onclick="location.hash=&#39;&#39;;return false">All tools</a>
+      <a href="file:///C:/Users/franc/Downloads/fintech-tools-directory-eleflow.html#">Request a tool</a>
+      <a href="file:///C:/Users/franc/Downloads/fintech-tools-directory-eleflow.html#">Privacy</a>
+      <a href="file:///C:/Users/franc/Downloads/fintech-tools-directory-eleflow.html#">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+const TOOLS = [
+  {id:'amortisation-schedule-calculator', name:'Amortisation Schedule', live:true,
+   blurb:'Full repayment schedule with balloon/residual support and weekly, fortnightly or monthly frequencies. Export for the client file.'},
+  {id:'ato-tax-debt-comparison', name:'ATO Tax Debt Comparison', live:false,
+   blurb:'True cost of an ATO payment plan (non-deductible GIC, compounding daily) side by side with refinancing the debt.'},
+  {id:'asset-finance-comparison', name:'Asset Finance Comparison', live:false,
+   blurb:'Chattel mortgage vs finance lease vs outright purchase — repayments, GST treatment and deduction effect on one page.'},
+  {id:'division-7a-loan-calculator', name:'Div 7A Loan Calculator', live:false,
+   blurb:'Minimum yearly repayments and benchmark interest for Division 7A complying loans.'},
+  {id:'instant-asset-write-off-calculator', name:'Instant Asset Write-Off', live:false,
+   blurb:'Deduction and cash-flow effect of an eligible asset purchase under the current threshold.'},
+];
+const fmt = new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD'});
+
+/* ---------- hub ---------- */
+document.getElementById('grid').innerHTML = TOOLS.map(t=>`
+  <button class="tool-card" onclick="location.hash='${t.id}'">
+    <span class="chip" aria-hidden="true"><i></i><i></i><i></i></span>
+    <h2>${t.name}</h2><p>${t.blurb}</p>
+    ${t.live?'<span class="open">Open calculator →</span>':'<span class="soon">Coming soon</span>'}
+  </button>`).join('');
+
+/* ---------- calculator ---------- */
+function calcTemplate(){
+  return `
+  <div class="calc-wrap">
+    <div class="calc-head">
+      <div class="calc-title">Amortisation Schedule</div>
+      <div class="brand-chip"><span class="logo"></span>Prepared by <strong>&nbsp;FJG Partners</strong></div>
+    </div>
+    <div class="calc-body">
+      <div class="calc-inputs">
+        <div class="field"><label>Amount financed</label><input id="f-amt" type="number" inputmode="decimal" value="85000" min="0" step="500"></div>
+        <div class="field"><label>Annual rate (%)</label><input id="f-rate" type="number" inputmode="decimal" value="7.99" min="0" step="0.01"></div>
+        <div class="field"><label>Term (years)</label><input id="f-yrs" type="number" inputmode="numeric" value="5" min="1" max="30" step="1"></div>
+        <div class="field"><label>Balloon / residual</label><input id="f-bal" type="number" inputmode="decimal" value="25500" min="0" step="500"></div>
+        <div class="field"><label>Repayment frequency</label>
+          <select id="f-freq">
+            <option value="12">Monthly</option>
+            <option value="26">Fortnightly</option>
+            <option value="52">Weekly</option>
+          </select>
+        </div>
+      </div>
+      <div class="calc-results">
+        <div class="summary" id="f-summary"></div>
+        <div class="table-scroll">
+          <table class="ledger">
+            <thead><tr><th>#</th><th>Payment</th><th>Interest</th><th>Principal</th><th>Balance</th></tr></thead>
+            <tbody id="f-rows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="calc-foot">
+      <button class="btn primary">Export branded PDF</button>
+      <button class="btn ghost">Download CSV</button>
+      <span class="hint">Sign in to export with your firm's logo and colours.</span>
+    </div>
+  </div>
+  <div class="content">
+    <h3>How this calculator works</h3>
+    <p>Enter the amount financed, rate, term and any balloon or residual. The schedule splits every repayment into interest and principal using the actual repayment frequency — not a monthly approximation — so fortnightly and weekly schedules reconcile to the cent.</p>
+    <h3>Who it's for</h3>
+    <p>Accountants preparing loan schedules for client files, chattel mortgage and hire purchase reconciliations, and end-of-year interest apportionment across balance dates.</p>
+    <div class="faq">
+      <details><summary>Does it handle balloon payments?</summary><p>Yes — enter the residual and the schedule amortises to that figure at the final payment, shown as a separate line.</p></details>
+      <details><summary>Can I export the schedule?</summary><p>Sign in to export a PDF or CSV branded with your firm's logo, ready for the client file.</p></details>
+      <details><summary>What does it cost?</summary><p>Nothing. All tools on this site are free for accounting professionals — no per-seat licences, no trial windows.</p></details>
+    </div>
+  </div>`;
+}
+
+function runCalc(){
+  const L = +document.getElementById('f-amt').value || 0;
+  const rateA = +document.getElementById('f-rate').value || 0;
+  const yrs = +document.getElementById('f-yrs').value || 1;
+  const B = +document.getElementById('f-bal').value || 0;
+  const f = +document.getElementById('f-freq').value;
+  const n = Math.round(yrs*f), r = rateA/100/f;
+  const pmt = r===0 ? (L-B)/n : (L - B*Math.pow(1+r,-n)) * r / (1 - Math.pow(1+r,-n));
+  const totalPaid = pmt*n + B;
+  const totalInt = pmt*n - (L - B);
+
+  const freqLabel = {12:'Monthly',26:'Fortnightly',52:'Weekly'}[f];
+  document.getElementById('f-summary').innerHTML = `
+    <div class="stat hero-stat"><div class="k">${freqLabel} repayment</div><div class="v num">${fmt.format(pmt)}</div></div>
+    <div class="stat"><div class="k">Total interest</div><div class="v num">${fmt.format(totalInt)}</div></div>
+    <div class="stat"><div class="k">Total payable</div><div class="v num">${fmt.format(totalPaid)}</div></div>`;
+
+  let rows='', bal=L;
+  const all=[];
+  for(let i=1;i<=n;i++){
+    const int_=bal*r, pri=pmt-int_; bal-=pri;
+    all.push({i,int_,pri,bal:Math.max(bal,0)});
+  }
+  const show = all.slice(0,5).concat(n>7 ? all.slice(-2) : []);
+  show.forEach((p,idx)=>{
+    if(idx===5 && n>7) rows+=`<tr class="gap"><td colspan="5">···</td></tr>`;
+    rows+=`<tr><td class="num">${p.i}</td><td class="num">${fmt.format(pmt)}</td><td class="num">${fmt.format(p.int_)}</td><td class="num">${fmt.format(p.pri)}</td><td class="num">${fmt.format(p.bal)}</td></tr>`;
+  });
+  if(B>0) rows+=`<tr class="residual"><td colspan="4">Residual / balloon due</td><td class="num">${fmt.format(B)}</td></tr>`;
+  rows+=`<tr class="totals"><td>Totals</td><td class="num">${fmt.format(totalPaid)}</td><td class="num">${fmt.format(totalInt)}</td><td class="num">${fmt.format(L)}</td><td class="num">${fmt.format(0)}</td></tr>`;
+  document.getElementById('f-rows').innerHTML = rows;
+}
+
+function placeholderTemplate(tool){
+  return `
+  <div class="placeholder">
+    <h2>${tool.name}</h2>
+    <p>${tool.blurb}</p>
+    <span class="tag">In build — coming soon</span>
+  </div>`;
+}
+
+/* ---------- routing ---------- */
+function render(){
+  const id = location.hash.replace('#','');
+  const tool = TOOLS.find(t=>t.id===id);
+  const hub = document.getElementById('hub');
+  const page = document.getElementById('toolpage');
+  if(!tool){
+    hub.hidden=false; page.hidden=true;
+    document.title='Fintech Tools — Free calculators for Australian accountants';
+    return;
+  }
+  hub.hidden=true; page.hidden=false;
+  document.title = tool.name + ' — Fintech Tools';
+  const body = document.getElementById('toolbody');
+  if(tool.live){
+    body.innerHTML = calcTemplate();
+    ['amt','rate','yrs','bal','freq'].forEach(k=>{
+      document.getElementById('f-'+k).addEventListener('input',runCalc);
+    });
+    runCalc();
+  } else {
+    body.innerHTML = placeholderTemplate(tool);
+  }
+  document.getElementById('related').innerHTML = TOOLS.filter(t=>t.id!==id).map(t=>
+    `<button onclick="location.hash='${t.id}'">${t.name}</button>`).join('');
+  window.scrollTo({top:0});
+}
+window.addEventListener('hashchange', render);
+render();
+</script>
+
+
+</body></html>

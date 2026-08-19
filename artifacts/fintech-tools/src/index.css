@@ -1,0 +1,186 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
+
+@theme inline {
+  --color-blue: #4A6CF7;
+  --color-blue-deep: #3454E0;
+  --color-sky: #6FC8F5;
+  --color-yellow: #F5D54A;
+  --color-charcoal: #1E2126;
+  --color-ink: #23262B;
+  --color-ink-soft: #585E66;
+  --color-paper: #F2F1EE;
+  --color-card: #FFFFFF;
+  --color-rule: #E2E1DC;
+  --color-red: #C24A33;
+
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-border: var(--color-rule);
+  
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-display: 'Schibsted Grotesk', sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+}
+
+:root {
+  --blue: #4A6CF7;
+  --blue-deep: #3454E0;
+  --sky: #6FC8F5;
+  --yellow: #F5D54A;
+  --charcoal: #1E2126;
+  --ink: #23262B;
+  --ink-soft: #585E66;
+  --paper: #F2F1EE;
+  --card: #FFFFFF;
+  --rule: #E2E1DC;
+  --red: #C24A33;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --border: var(--rule);
+  --muted: #FBFBFA;
+  --muted-foreground: var(--ink-soft);
+  --input: var(--rule);
+  --ring: var(--blue);
+  
+  --radius: 8px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.55;
+    @apply antialiased;
+  }
+
+  .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  a {
+    color: var(--blue-deep);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--ink);
+  }
+}
+
+/* Utilities and Shared Components CSS */
+@layer components {
+  .btn {
+    @apply border border-charcoal bg-card text-ink px-[15px] py-[9px] rounded-md font-semibold text-[13.5px] whitespace-nowrap inline-flex items-center justify-center transition-colors;
+  }
+  .btn.primary {
+    @apply bg-blue border-blue text-white;
+  }
+  .btn.primary:hover {
+    @apply bg-blue-deep;
+  }
+  .btn.ghost {
+    @apply border-rule text-ink-soft bg-transparent;
+  }
+  .btn.ghost:hover {
+    @apply text-ink;
+  }
+  .btn:disabled {
+    @apply opacity-50 cursor-not-allowed pointer-events-none;
+  }
+
+  .mark {
+    @apply inline-grid grid-cols-2 grid-rows-2 w-[22px] h-[22px] shrink-0;
+  }
+  .mark i:nth-child(1) { grid-column: 2; grid-row: 1; background: var(--yellow); }
+  .mark i:nth-child(2) { grid-column: 1; grid-row: 2; background: var(--blue); }
+  .mark i:nth-child(3) { grid-column: 2; grid-row: 2; background: var(--sky); }
+
+  .wordmark {
+    @apply flex items-center gap-[9px] font-display font-extrabold text-[18px] tracking-tight whitespace-nowrap border-none bg-none text-ink p-0;
+  }
+  .wordmark .tld {
+    @apply font-mono font-normal text-[10.5px] text-ink-soft ml-[1px];
+  }
+
+  .field {
+    @apply mb-3;
+  }
+  .field label {
+    @apply block text-[12px] font-semibold text-ink-soft mb-1 tracking-[.02em];
+  }
+  .field input, .field select, .field textarea {
+    @apply w-full px-[11px] py-[10px] border border-rule rounded-md font-sans text-[16px] bg-white text-ink transition-colors;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    @apply border-blue outline-none;
+  }
+  .field input[type="number"] {
+    @apply font-mono;
+  }
+  
+  .error-text {
+    @apply text-red text-[12px] mt-1 font-medium;
+  }
+
+  .content h3 {
+    @apply font-display font-bold text-[16px] my-[22px] mt-[22px] mb-[6px];
+  }
+  .content p {
+    @apply text-ink-soft mb-[10px];
+  }
+  
+  .faq {
+    @apply border-t border-rule mt-[18px];
+  }
+  .faq details {
+    @apply border-b border-rule py-[12px] px-[2px];
+  }
+  .faq summary {
+    @apply font-semibold cursor-pointer text-[14px] py-[4px] select-none;
+  }
+  .faq p {
+    @apply mt-[8px] text-[14px] text-ink-soft;
+  }
+
+  .tag {
+    @apply inline-block mt-[12px] font-mono text-[11px] tracking-[.06em] uppercase text-blue-deep bg-[#EBEFFE] rounded-full px-[13px] py-[5px];
+  }
+}

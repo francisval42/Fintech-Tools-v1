@@ -1,3 +1,4 @@
+import { seedTools } from "@workspace/db/seed";
 import app from "./app";
 import { logger } from "./lib/logger";
 
@@ -15,11 +16,27 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-app.listen(port, (err) => {
-  if (err) {
-    logger.error({ err }, "Error listening on port");
-    process.exit(1);
+async function start() {
+  // Idempotent upsert of canonical tool content so fresh databases
+  // (e.g. production) serve the directory without manual seeding.
+  try {
+    await seedTools();
+    logger.info("Tool content seeded");
+  } catch (err) {
+    logger.error(
+      { err },
+      "Tool content seeding failed — /api/tools may be empty or stale",
+    );
   }
 
-  logger.info({ port }, "Server listening");
-});
+  app.listen(port, (err) => {
+    if (err) {
+      logger.error({ err }, "Error listening on port");
+      process.exit(1);
+    }
+
+    logger.info({ port }, "Server listening");
+  });
+}
+
+void start();

@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Fintech Tools"
+description = "Free, professional-grade financial calculators for Australian accountants at fintechtools.com.au. v1 ships a directory homepage, a fully working amortisation schedule calculator with balloon/residual support usable anonymously, four coming-soon tool pages, and privacy/contact pages, styled to a locked design reference."
+version = "1.0.0"
+id = "artifacts/fintech-tools"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24299
+
+[services.development]
+run = "pnpm --filter @workspace/fintech-tools run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/fintech-tools", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/fintech-tools/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24299"
+BASE_PATH = "/"

@@ -3,13 +3,17 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Fintech Tools API — tool directory, tool requests, usage events
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: tools
+    description: Tool directory
+  - name: engagement
+    description: Tool requests and usage events
 paths:
   /healthz:
     get:
@@ -24,6 +28,95 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /tools:
+    get:
+      operationId: listTools
+      tags: [tools]
+      summary: List visible tools
+      description: Returns all live and coming-soon tools ordered by sortOrder. Hidden tools are excluded.
+      responses:
+        "200":
+          description: Tool list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ToolSummary"
+  /tools/{slug}:
+    get:
+      operationId: getToolBySlug
+      tags: [tools]
+      summary: Get a tool by slug
+      description: Returns full tool detail including SEO fields and page copy. 404 for unknown or hidden tools.
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Tool detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ToolDetail"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+  /tool-requests:
+    post:
+      operationId: createToolRequest
+      tags: [engagement]
+      summary: Submit a tool request or notify-me email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ToolRequestCreate"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreatedResponse"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+  /usage-events:
+    post:
+      operationId: logUsageEvent
+      tags: [engagement]
+      summary: Log an anonymous usage event
+      description: Logs calculate and notify-me events. Anonymous — no auth in v1 Phase 1.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UsageEventCreate"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreatedResponse"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +126,79 @@ components:
           type: string
       required:
         - status
-
+    ToolStatus:
+      type: string
+      enum: [live, coming_soon]
+    ToolSummary:
+      type: object
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+        blurb:
+          type: string
+        status:
+          $ref: "#/components/schemas/ToolStatus"
+        sortOrder:
+          type: number
+      required: [slug, name, blurb, status, sortOrder]
+    ToolDetail:
+      type: object
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+        blurb:
+          type: string
+        status:
+          $ref: "#/components/schemas/ToolStatus"
+        sortOrder:
+          type: number
+        seoTitle:
+          type: string
+        seoDescription:
+          type: string
+        pageCopy:
+          type: string
+          description: Markdown with "## How it works", "## Who it's for" and "## FAQ" sections; FAQ pairs are "### Question" headings followed by answer paragraphs.
+      required: [slug, name, blurb, status, sortOrder, seoTitle, seoDescription, pageCopy]
+    ToolRequestCreate:
+      type: object
+      properties:
+        requestText:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        currentCostText:
+          type: string
+          maxLength: 1000
+        email:
+          type: string
+          maxLength: 320
+      required: [requestText]
+    UsageEventCreate:
+      type: object
+      properties:
+        toolSlug:
+          type: string
+        eventType:
+          type: string
+          enum: [calculate, notify_me]
+        payload:
+          type: object
+          additionalProperties: true
+      required: [toolSlug, eventType]
+    CreatedResponse:
+      type: object
+      properties:
+        id:
+          type: number
+      required: [id]
+    ApiError:
+      type: object
+      properties:
+        message:
+          type: string
+      required: [message]
