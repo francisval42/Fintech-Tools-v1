@@ -16,12 +16,13 @@ run = "pnpm --filter @workspace/fintech-tools run dev"
 
 [services.production]
 build = [ "pnpm", "--filter", "@workspace/fintech-tools", "run", "build" ]
-serve = "static"
-publicDir = "artifacts/fintech-tools/dist/public"
 
-[[services.production.rewrites]]
-from = "/*"
-to = "/index.html"
+[services.production.run]
+args = [ "node", "artifacts/fintech-tools/serve.mjs" ]
+
+[services.production.run.env]
+PORT = "24299"
+NODE_ENV = "production"
 
 [services.env]
 PORT = "24299"
