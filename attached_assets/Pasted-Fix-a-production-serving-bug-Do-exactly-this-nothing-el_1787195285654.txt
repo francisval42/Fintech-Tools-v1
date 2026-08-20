@@ -1,0 +1,57 @@
+Fix a production serving bug. Do exactly this, nothing else.
+
+PROBLEM
+The web artifact deploys with serve="static" and a catch-all rewrite
+/* -> /index.html. The build's prerender step (prerender.mjs) writes
+per-route HTML files like dist/public/amortisation-schedule-calculator/index.html,
+but the platform applies the rewrite before file resolution, so every
+route serves the homepage file — including a canonical tag pointing to
+https://fintechtools.com.au/ on every URL. The prerendered files must
+be served at their routes.
+
+FIX — two changes only:
+
+1. Create artifacts/fintech-tools/serve.mjs — a dependency-free Node
+HTTP server (node:http, node:fs, node:path only; no npm packages):
+- Serves files from artifacts/fintech-tools/dist/public, resolved
+  relative to serve.mjs via import.meta.url, listening on
+  process.env.PORT, host 0.0.0.0. Throw at startup if PORT is unset.
+- Request resolution order for GET/HEAD (reject other methods 405):
+  a. exact file match -> serve it
+  b. no file extension in path -> try <path>/index.html
+  c. otherwise -> serve dist/public/index.html (SPA fallback, status 200)
+- Guard against path traversal: resolve the target and refuse (403)
+  anything outside dist/public.
+- HEAD requests return headers only, no body.
+- Cache-Control: "public, max-age=31536000, immutable" for /assets/*,
+  "no-cache" for everything else.
+- Correct Content-Type for at least: html, js, css, svg, xml, txt, json,
+  png, jpg, ico, woff2.
+
+2. Edit artifacts/fintech-tools/.replit-artifact/artifact.toml:
+in [services.production], remove serve="static", publicDir, and the
+[[services.production.rewrites]] block. Keep the existing build command
+unchanged. Add a production run configuration that executes
+node artifacts/fintech-tools/serve.mjs with PORT=24299 and
+NODE_ENV=production, mirroring the structure the api-server artifact
+already uses for its production run. Leave [services.development] and
+[services.env] untouched.
+
+DO NOT: add dependencies, modify prerender.mjs, tool-content.json,
+seed-tools.ts, package.json scripts, vite.config.ts, any page or
+calculator code, or reformat any file you aren't editing.
+
+VERIFY BEFORE FINISHING — run the production build, start serve.mjs
+locally, and confirm with curl:
+- GET /amortisation-schedule-calculator returns HTML containing
+  <h1>Amortisation Schedule</h1> and a canonical link ending
+  /amortisation-schedule-calculator
+- GET /division-7a-loan-calculator returns <h1>Div 7A Loan Calculator</h1>
+- GET / returns <h1>The calculators your practice pays for, free.</h1>
+- GET /sitemap.xml and /robots.txt return 200
+- GET /assets/ plus any built asset filename returns 200 with the
+  immutable cache header
+- GET /some-route-that-does-not-exist returns the SPA fallback with 200
+If any check fails, fix and re-verify before declaring done. Report the
+curl outputs. Commit with message:
+"fix(deploy): serve prerendered routes via node server instead of static rewrite"
